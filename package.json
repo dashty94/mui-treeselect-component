@@ -1,5 +1,5 @@
 {
-    "name": "mui-treeselect",
+    "name": "mui-treeselect-component",
     "version": "0.0.1",
     "description": "A Material UI treeselect component.",
     "author": "dashty94",
@@ -54,9 +54,8 @@
     "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dashty94/mui-treeselect"
+        "url": "git+https://github.com/dashty94/mui-treeselect-component.git"
     },
-    "dependencies": {},
     "peerDependencies": {
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
@@ -64,5 +63,9 @@
         "@mui/lab": "^5.0.0-alpha.53",
         "@mui/icons-material": "^5.0.0-rc.1",
         "react": "^17.0.2"
-    }
+    },
+    "bugs": {
+        "url": "https://github.com/dashty94/mui-treeselect-component/issues"
+    },
+    "homepage": "https://github.com/dashty94/mui-treeselect-component#readme"
 }

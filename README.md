@@ -1,6 +1,6 @@
 <!-- markdownlint-disable-next-line -->
 
-<h1 align="center">mui-treeselect</h1>
+<h1 align="center">mui-treeselect-component</h1>
 
 <div align="center">
 A material ui treeselect component
@@ -13,10 +13,10 @@ mui-rhf-library is available as an [npm package](https://www.npmjs.com/package/m
 
 ```sh
 // with npm
-npm install mui-treeselect
+npm install mui-treeselect-component
 
 // with yarn
-yarn add mui-treeselect
+yarn add mui-treeselect-component
 ```
 
 
@@ -82,5 +82,4 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 ## Changelog
 
 Please read the [changelog](https://github.com/dashty94/mui-treeselect/releases) for details of what has changed.
-# mui-treeselect
-# mui-treeselect
+# mui-treeselect-component
