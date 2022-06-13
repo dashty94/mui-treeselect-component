@@ -32,36 +32,34 @@ Here is a quick example to get you started:
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { TextFieldController, SelectController } from 'mui-rhf-library';
-import { useForm } from 'react-hook-form';
+import { Treeselect } from 'mui-treeselect';
 
 
 function App() {
-    const {
-        control,
-	} = useForm();
 
     return (
         <>
-            <TextFieldController
-                control={control}
-                name="name"
-                defaultValue=""
-                label="TextField Controller"
+            <Treeselect
+                data={[
+                {id: '1', item: 'Item 1'},
+                {
+                    id: 2, item: "Item 2", children: [
+                        id: 3, item: "Item 3"
+                    ]
+                }
+            ]}
+                label="Treeselect"
+                idKey="id",
+                valueKey="item",
+                onChange={
+                (value)=>{
+                    //do something with selected value
+                    console.log(value)
+                }
+            }
             />
 
-        	<SelectController
-                name="select"
-                label="Select Controller"
-                control={control}
-                options: [
-        			{ label: 'Option One', value: 'option-one', example: {name: 'example-one'} },
-        			{ label: 'Option Two', value: 'option-two', example: {name: 'example-two'} }
-    			]
-                optionValue: 'example.name',
-                optionLabel: 'example.name',
-                variant="outlined"
-            />
+        	
         </>
     );
 }
@@ -71,15 +69,15 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 # Documentation
 
-#### TextField Controller
+#### Treeselect
 
-Props of Material UI TextField are also available.
-
-| Prop         | Type      | Default | Definition                                                                                              |
-| ------------ | --------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| name\*       | string    |         | The name of the input                                                                                   |
-| control\*    | `Control` |         | The React Hook Form object to register components into React Hook Form.                                 |
-| defaultValue | any       |         | The default value of the input that would be injected into React Hook Form Controller and the component |
+| Prop     | Type       | Default     | Definition                                         |
+| -------- | ---------- | ----------- | -------------------------------------------------- |
+| data*    | `any[]`    |             | The data of the treeview                           |
+| label\*  | `string`   |             | The label of the textFeild                         |
+| idKey    | `string`   | "id"        | the identifire key in the tree data                |
+| valueKey | `string`   | "name"      | the identifire for the value in the tree data      |
+| onChange | `function` | (value)=>{} | the callback function to access the selected value |
 
 ## Changelog
 
