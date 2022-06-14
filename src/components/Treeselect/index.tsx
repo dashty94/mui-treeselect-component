@@ -1,5 +1,5 @@
 import { TreeItem, TreeView } from '@mui/lab';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
