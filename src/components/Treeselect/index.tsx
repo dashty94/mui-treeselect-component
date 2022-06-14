@@ -1,10 +1,13 @@
 import { TreeItem, TreeView } from '@mui/lab';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Popover, TextField, Typography } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { Box, Popover, TextField, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { Data, TreeSelectProps } from '../../types';
+//@ts-ignore
+import Measure from 'react-measure';
 
 const StyledPopover = styled(Popover)(() => ({
     '& .MuiPaper-root': {
@@ -18,7 +21,14 @@ const StyledTreeView = styled(TreeView)(() => ({
     }
 }));
 
-export const Treeselect = ({ data, label, idKey = 'id', valueKey = 'name', onChange = () => {} }: TreeSelectProps) => {
+export const Treeselect = ({
+    data,
+    label,
+    idKey = 'id',
+    valueKey = 'name',
+    onChange = () => {},
+    dir = 'ltr'
+}: TreeSelectProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -74,68 +84,79 @@ export const Treeselect = ({ data, label, idKey = 'id', valueKey = 'name', onCha
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                required={false}
-                label={label}
-                name="equipmentItem"
-                id="equipmentItem"
-                // defaultValue={equipmentItem}
-                value={equipmentItem}
-                className="w-100"
-                inputProps={{ readOnly: true }}
-                onClick={handleClick}
-                fullWidth
-            />
+            <Measure bounds>
+                {({
+                    measureRef,
+                    contentRect: {
+                        bounds: { width }
+                    }
+                }: any) => (
+                    <Box>
+                        <TextField
+                            variant="outlined"
+                            required={false}
+                            label={label}
+                            name="equipmentItem"
+                            id="equipmentItem"
+                            // defaultValue={equipmentItem}
+                            value={equipmentItem}
+                            className="w-100"
+                            inputProps={{ readOnly: true }}
+                            onClick={handleClick}
+                            inputRef={measureRef}
+                            fullWidth
+                        />
+                        <StyledPopover
+                            id={id}
+                            open={open}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left'
+                            }}
+                            sx={{ width: width + 25 }}
+                        >
+                            {data.length > 0 ? (
+                                <StyledTreeView
+                                    defaultSelected={equipmentId}
+                                    selected={equipmentId}
+                                    aria-label="file system navigator"
+                                    defaultCollapseIcon={<ExpandMoreIcon sx={{ fontSize: 40 }} />}
+                                    defaultExpandIcon={
+                                        dir === 'ltr' ? (
+                                            <ChevronRightIcon sx={{ fontSize: 40 }} />
+                                        ) : (
+                                            <ChevronLeftIcon sx={{ fontSize: 40 }} />
+                                        )
+                                    }
+                                    onNodeSelect={(event: any, nodeId: any) => {
+                                        setExpanded((oldExpanded: string[]) => {
+                                            // find if in the array and remove everything after it
+                                            const index = oldExpanded.indexOf(String(nodeId));
+                                            if (index > -1) {
+                                                return oldExpanded.slice(0, index);
+                                            }
+                                            return [...oldExpanded, String(nodeId)];
+                                        });
 
-            <StyledPopover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                }}
-            >
-                {data.length > 0 ? (
-                    <StyledTreeView
-                        defaultSelected={equipmentId}
-                        selected={equipmentId}
-                        aria-label="file system navigator"
-                        defaultCollapseIcon={<ExpandMoreIcon sx={{ fontSize: 40 }} />}
-                        defaultExpandIcon={<ChevronRightIcon sx={{ fontSize: 40 }} />}
-                        sx={{
-                            flexGrow: 1,
-                            width: '100%',
-                            overflowY: 'auto',
-                            overflowX: 'hidden',
-                            height: 'fit-content'
-                        }}
-                        onNodeSelect={(event: any, nodeId: any) => {
-                            setExpanded((oldExpanded: string[]) => {
-                                // find if in the array and remove everything after it
-                                const index = oldExpanded.indexOf(String(nodeId));
-                                if (index > -1) {
-                                    return oldExpanded.slice(0, index);
-                                }
-                                return [...oldExpanded, String(nodeId)];
-                            });
-
-                            if (!event || !event?.target?.innerText || !nodeId) return;
-                            setEquipmentId(nodeId);
-                            setEquipmentItem(event.target.innerText);
-                            setAnchorEl(null);
-                            onChange(nodeId);
-                        }}
-                        expanded={expanded}
-                    >
-                        <RenderItems items={data} />
-                    </StyledTreeView>
-                ) : (
-                    <Typography>No data found</Typography>
+                                        if (!event || !event?.target?.innerText || !nodeId) return;
+                                        setEquipmentId(nodeId);
+                                        setEquipmentItem(event.target.innerText);
+                                        setAnchorEl(null);
+                                        onChange(nodeId);
+                                    }}
+                                    expanded={expanded}
+                                >
+                                    <RenderItems items={data} />
+                                </StyledTreeView>
+                            ) : (
+                                <Typography>No data found</Typography>
+                            )}
+                        </StyledPopover>
+                    </Box>
                 )}
-            </StyledPopover>
+            </Measure>
         </>
     );
 };
