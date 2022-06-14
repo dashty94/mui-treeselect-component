@@ -6,7 +6,6 @@
 A material ui treeselect component
 </div>
 
-
 ## Installation
 
 mui-rhf-library is available as an [npm package](https://www.npmjs.com/package/mui-treeselect).
@@ -19,11 +18,9 @@ npm install mui-treeselect-component
 yarn add mui-treeselect-component
 ```
 
-
-
 ## Demo
 
-Check the storybook of the library: 
+Check the storybook of the library:
 
 ## Usage
 
@@ -55,11 +52,12 @@ function App() {
                 (value)=>{
                     //do something with selected value
                     console.log(value)
-                }
+                },
+                dir="ltr"
             }
             />
 
-        	
+
         </>
     );
 }
@@ -71,15 +69,17 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 #### Treeselect
 
-| Prop     | Type       | Default     | Definition                                         |
-| -------- | ---------- | ----------- | -------------------------------------------------- |
-| data*    | `any[]`    |             | The data of the treeview                           |
-| label\*  | `string`   |             | The label of the textFeild                         |
-| idKey    | `string`   | "id"        | the identifire key in the tree data                |
-| valueKey | `string`   | "name"      | the identifire for the value in the tree data      |
-| onChange | `function` | (value)=>{} | the callback function to access the selected value |
+| Prop     | Type           | Default     | Definition                                         |
+| -------- | -------------- | ----------- | -------------------------------------------------- |
+| data\*   | `any[]`        |             | The data of the treeview                           |
+| label\*  | `string`       |             | The label of the textFeild                         |
+| idKey    | `string`       | "id"        | the identifire key in the tree data                |
+| valueKey | `string`       | "name"      | the identifire for the value in the tree data      |
+| onChange | `function`     | (value)=>{} | the callback function to access the selected value |
+| dir      | `rtl` or `ltr` | (value)=>{} | direction of the expand icon of the nodes          |
 
 ## Changelog
 
 Please read the [changelog](https://github.com/dashty94/mui-treeselect/releases) for details of what has changed.
+
 # mui-treeselect-component
