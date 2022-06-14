@@ -6,4 +6,5 @@ export interface TreeSelectProps {
     idKey?: string;
     valueKey?: string;
     onChange?: (value: any) => void;
+    dir?: 'ltr' | 'rtl';
 }
