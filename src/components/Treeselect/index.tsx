@@ -27,7 +27,8 @@ export const Treeselect = ({
     idKey = 'id',
     valueKey = 'name',
     onChange = () => {},
-    dir = 'ltr'
+    dir = 'ltr',
+    emptyLabel = 'No data found'
 }: TreeSelectProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -151,7 +152,7 @@ export const Treeselect = ({
                                     <RenderItems items={data} />
                                 </StyledTreeView>
                             ) : (
-                                <Typography>No data found</Typography>
+                                <Typography>{emptyLabel}</Typography>
                             )}
                         </StyledPopover>
                     </Box>
