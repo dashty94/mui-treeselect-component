@@ -20,7 +20,7 @@ yarn add mui-treeselect-component
 
 ## Demo
 
-Check the storybook of the library:
+Check the storybook of the library: https://62a83daf64071006fcdebc72-hrlbgpsqpf.chromatic.com/?path=/story/treeselect--treeselect-component
 
 ## Usage
 
