@@ -76,7 +76,7 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 | idKey    | `string`       | "id"        | the identifire key in the tree data                |
 | valueKey | `string`       | "name"      | the identifire for the value in the tree data      |
 | onChange | `function`     | (value)=>{} | the callback function to access the selected value |
-| dir      | `rtl` or `ltr` | (value)=>{} | direction of the expand icon of the nodes          |
+| dir      | `rtl` or `ltr` | `ltr`       | direction of the expand icon of the nodes          |
 
 ## Changelog
 
