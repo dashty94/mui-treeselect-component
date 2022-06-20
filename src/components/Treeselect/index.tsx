@@ -1,9 +1,10 @@
 import { TreeItem, TreeView } from '@mui/lab';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { Box, Popover, TextField, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Close';
+import { Box, IconButton, Popover, TextField, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { Data, TreeSelectProps } from '../../types';
 //@ts-ignore
@@ -27,14 +28,17 @@ export const Treeselect = ({
     idKey = 'id',
     valueKey = 'name',
     onChange = () => {},
-    dir = 'ltr'
+    dir = 'ltr',
+    emptyLabel = 'No data found',
+    defaultId = null,
+    defaultValue = null
 }: TreeSelectProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    const [equipmentItem, setEquipmentItem] = useState('');
-    const [equipmentId, setEquipmentId] = useState('');
+    const [equipmentItem, setEquipmentItem] = useState(defaultValue || '');
+    const [equipmentId, setEquipmentId] = useState(defaultId || '');
     const [expanded, setExpanded] = useState<string[]>([]);
 
     const handleClick = (event: any) => {
@@ -105,6 +109,20 @@ export const Treeselect = ({
                             onClick={handleClick}
                             inputRef={measureRef}
                             fullWidth
+                            InputProps={{
+                                endAdornment: (
+                                    <IconButton
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setEquipmentItem('');
+                                            setEquipmentId('');
+                                            setExpanded([]);
+                                        }}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                )
+                            }}
                         />
                         <StyledPopover
                             id={id}
@@ -121,7 +139,7 @@ export const Treeselect = ({
                                 <StyledTreeView
                                     defaultSelected={equipmentId}
                                     selected={equipmentId}
-                                    aria-label="file system navigator"
+                                    aria-label="tree-view"
                                     defaultCollapseIcon={<ExpandMoreIcon sx={{ fontSize: 40 }} />}
                                     defaultExpandIcon={
                                         dir === 'ltr' ? (
@@ -151,7 +169,9 @@ export const Treeselect = ({
                                     <RenderItems items={data} />
                                 </StyledTreeView>
                             ) : (
-                                <Typography>No data found</Typography>
+                                <Typography p={1} color="text.secondary">
+                                    {emptyLabel}
+                                </Typography>
                             )}
                         </StyledPopover>
                     </Box>

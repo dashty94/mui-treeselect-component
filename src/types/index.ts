@@ -7,4 +7,7 @@ export interface TreeSelectProps {
     valueKey?: string;
     onChange?: (value: any) => void;
     dir?: 'ltr' | 'rtl';
+    defaultValue?: any;
+    defaultId?: any;
+    emptyLabel?: string;
 }
