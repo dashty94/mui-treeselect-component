@@ -172,6 +172,7 @@ export const Treeselect = ({
                                 <Typography p={1} color="text.secondary">
                                     {emptyLabel}
                                 </Typography>
+
                             )}
                         </StyledPopover>
                     </Box>
