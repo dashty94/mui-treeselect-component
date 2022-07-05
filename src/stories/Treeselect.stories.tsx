@@ -24,9 +24,9 @@ const Template: Story<TreeSelectProps> = (args) => {
     return <Treeselect {...args} />;
 };
 
-export const TextField = Template.bind({});
+export const TreeselectComponent = Template.bind({});
 
-TextField.args = {
+TreeselectComponent.args = {
     data: [
         {
             id: 1,
