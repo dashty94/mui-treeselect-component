@@ -2,17 +2,36 @@ import { TreeItem, TreeView } from '@mui/lab';
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DeleteIcon from '@mui/icons-material/Close';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Box, IconButton, Popover, TextField, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { Data, TreeSelectProps } from '../../types';
+
 //@ts-ignore
 import Measure from 'react-measure';
 
-const StyledPopover = styled(Popover)(() => ({
+type Data = any[];
+
+interface TreeSelectProps {
+    data: Data;
+    label: string;
+    idKey?: string;
+    valueKey?: string;
+    onChange?: (value: any) => void;
+    onClear?: () => void;
+    dir?: 'ltr' | 'rtl';
+    emptyLabel?: string;
+    defaultValue?: string | null;
+    defaultId?: string | null;
+}
+
+const StyledPopover = styled(Popover)((props) => ({
     '& .MuiPaper-root': {
-        width: '100%'
+        width: '100%',
+        //@ts-ignore
+        maxWidth: props?.__width + 'px',
+        maxHeight: '18rem',
+        overflowY: 'scroll'
     }
 }));
 
@@ -28,6 +47,7 @@ export const Treeselect = ({
     idKey = 'id',
     valueKey = 'name',
     onChange = () => {},
+    onClear = () => {},
     dir = 'ltr',
     emptyLabel = 'No data found',
     defaultId = null,
@@ -95,7 +115,7 @@ export const Treeselect = ({
                         bounds: { width }
                     }
                 }: any) => (
-                    <Box>
+                    <Box ref={measureRef}>
                         <TextField
                             variant="outlined"
                             required={false}
@@ -107,7 +127,6 @@ export const Treeselect = ({
                             className="w-100"
                             inputProps={{ readOnly: true }}
                             onClick={handleClick}
-                            inputRef={measureRef}
                             fullWidth
                             InputProps={{
                                 endAdornment: (
@@ -117,6 +136,7 @@ export const Treeselect = ({
                                             setEquipmentItem('');
                                             setEquipmentId('');
                                             setExpanded([]);
+                                            onClear();
                                         }}
                                     >
                                         <DeleteIcon />
@@ -133,7 +153,8 @@ export const Treeselect = ({
                                 vertical: 'bottom',
                                 horizontal: 'left'
                             }}
-                            sx={{ width: width + 25 }}
+                            //@ts-ignore
+                            __width={width}
                         >
                             {data.length > 0 ? (
                                 <StyledTreeView
