@@ -2,17 +2,22 @@ import { TreeItem, TreeView } from '@mui/lab';
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DeleteIcon from '@mui/icons-material/Close';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Box, IconButton, Popover, TextField, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { Data, TreeSelectProps } from '../../types';
+
 //@ts-ignore
 import Measure from 'react-measure';
+import { Data, TreeSelectProps } from '../../types';
 
-const StyledPopover = styled(Popover)(() => ({
+const StyledPopover = styled(Popover)((props) => ({
     '& .MuiPaper-root': {
-        width: '100%'
+        width: '100%',
+        //@ts-ignore
+        maxWidth: props?.__width + 'px',
+        maxHeight: '18rem',
+        overflowY: 'scroll'
     }
 }));
 
@@ -28,10 +33,11 @@ export const Treeselect = ({
     idKey = 'id',
     valueKey = 'name',
     onChange = () => {},
+    onClear = () => {},
     dir = 'ltr',
     emptyLabel = 'No data found',
-    defaultId = null,
-    defaultValue = null
+    defaultId = undefined,
+    defaultValue = undefined
 }: TreeSelectProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -95,7 +101,7 @@ export const Treeselect = ({
                         bounds: { width }
                     }
                 }: any) => (
-                    <Box>
+                    <Box ref={measureRef}>
                         <TextField
                             variant="outlined"
                             required={false}
@@ -107,20 +113,22 @@ export const Treeselect = ({
                             className="w-100"
                             inputProps={{ readOnly: true }}
                             onClick={handleClick}
-                            inputRef={measureRef}
                             fullWidth
                             InputProps={{
-                                endAdornment: (
+                                endAdornment: equipmentItem ? (
                                     <IconButton
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setEquipmentItem('');
                                             setEquipmentId('');
                                             setExpanded([]);
+                                            onClear();
                                         }}
                                     >
                                         <DeleteIcon />
                                     </IconButton>
+                                ) : (
+                                    ''
                                 )
                             }}
                         />
@@ -133,7 +141,8 @@ export const Treeselect = ({
                                 vertical: 'bottom',
                                 horizontal: 'left'
                             }}
-                            sx={{ width: width + 25 }}
+                            //@ts-ignore
+                            __width={width}
                         >
                             {data.length > 0 ? (
                                 <StyledTreeView
@@ -172,7 +181,6 @@ export const Treeselect = ({
                                 <Typography p={1} color="text.secondary">
                                     {emptyLabel}
                                 </Typography>
-
                             )}
                         </StyledPopover>
                     </Box>
