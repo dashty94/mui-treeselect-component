@@ -146,6 +146,7 @@ export const Treeselect = ({
                             {data.length > 0 ? (
                                 <StyledTreeView
                                     defaultSelected={equipmentId}
+                                    selected={equipmentId}
                                     aria-label="tree-view"
                                     defaultCollapseIcon={<ExpandMoreIcon sx={{ fontSize: 40 }} />}
                                     defaultExpandIcon={
