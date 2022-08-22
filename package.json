@@ -23,7 +23,7 @@
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
         "@hookform/resolvers": "^2.8.8",
-        "@mui/icons-material": "^5.0.0-rc.1",
+        "@mui/icons-material": "^5.8.4",
         "@mui/lab": "^5.0.0-alpha.53",
         "@mui/material": "^5.4.1",
         "@rollup/plugin-commonjs": "^21.0.1",

@@ -65,14 +65,17 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 #### Treeselect
 
-| Prop     | Type           | Default     | Definition                                         |
-| -------- | -------------- | ----------- | -------------------------------------------------- |
-| data\*   | `any[]`        |             | The data of the treeview                           |
-| label\*  | `string`       |             | The label of the textFeild                         |
-| idKey    | `string`       | "id"        | the identifire key in the tree data                |
-| valueKey | `string`       | "name"      | the identifire for the value in the tree data      |
-| onChange | `function`     | (value)=>{} | the callback function to access the selected value |
-| dir      | `rtl` or `ltr` | `ltr`       | direction of the expand icon of the nodes          |
+| Prop         | Type           | Default         | Definition                                         |
+| ------------ | -------------- | --------------- | -------------------------------------------------- |
+| data\*       | `any[]`        |                 | The data of the treeview                           |
+| label\*      | `string`       |                 | The label of the textFeild                         |
+| idKey        | `string`       | "id"            | the identifire key in the tree data                |
+| valueKey     | `string`       | "name"          | the identifire for the value in the tree data      |
+| onChange     | `function`     | (value)=>{}     | the callback function to access the selected value |
+| dir          | `rtl` or `ltr` | `ltr`           | direction of the expand icon of the nodes          |
+| emptyLabel   | `string`       | `No data found` | no optoin placeholder when there is no data        |
+| defaultValue | `string`       |                 | default value for label                            |
+| defaultKey   | `string`       |                 | default id key                                     |
 
 ## Changelog
 
