@@ -30,21 +30,20 @@ const StyledTreeView = styled(TreeView)(() => ({
 export const Treeselect = ({
     data,
     label,
-    idKey = 'id',
-    valueKey = 'name',
+    optionValue = 'id',
+    optionLabel = 'label',
     onChange = () => {},
     onClear = () => {},
     dir = 'ltr',
     emptyLabel = 'No data found',
-    defaultId = undefined,
     defaultValue = undefined
 }: TreeSelectProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    const [equipmentItem, setEquipmentItem] = useState(defaultValue || '');
-    const [equipmentId, setEquipmentId] = useState(defaultId || '');
+    const [equipmentItem, setEquipmentItem] = useState(defaultValue ? defaultValue[optionLabel] : '');
+    const [equipmentId, setEquipmentId] = useState(defaultValue ? defaultValue[optionValue]?.toString() : '');
     const [expanded, setExpanded] = useState<string[]>([]);
 
     const handleClick = (event: any) => {
@@ -64,10 +63,10 @@ export const Treeselect = ({
                         return (
                             <TreeItem
                                 key={item.id}
-                                nodeId={String(item[idKey])}
+                                nodeId={String(item[optionValue])}
                                 label={
                                     <Typography sx={{ p: 1.2 }} variant="body2">
-                                        {item[valueKey]}
+                                        {item[optionLabel]}
                                     </Typography>
                                 }
                             >
@@ -78,10 +77,10 @@ export const Treeselect = ({
                         return (
                             <TreeItem
                                 key={item.id}
-                                nodeId={String(item[idKey])}
+                                nodeId={String(item[optionValue])}
                                 label={
                                     <Typography sx={{ p: 1.2 }} variant="body2">
-                                        {item[valueKey]}
+                                        {item[optionLabel]}
                                     </Typography>
                                 }
                             />
@@ -147,7 +146,6 @@ export const Treeselect = ({
                             {data.length > 0 ? (
                                 <StyledTreeView
                                     defaultSelected={equipmentId}
-                                    selected={equipmentId}
                                     aria-label="tree-view"
                                     defaultCollapseIcon={<ExpandMoreIcon sx={{ fontSize: 40 }} />}
                                     defaultExpandIcon={
