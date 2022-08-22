@@ -58,5 +58,11 @@ TreeselectComponent.args = {
             ]
         }
     ],
-    label: 'Treeselect'
+    label: 'Treeselect',
+    optionLabel: 'name',
+    optionValue: 'id',
+    defaultValue: {
+        name: 'Item 4',
+        id: 4
+    }
 };
