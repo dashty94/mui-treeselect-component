@@ -29,35 +29,31 @@ Here is a quick example to get you started:
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Treeselect } from 'mui-treeselect';
-
+import { Treeselect } from 'mui-treeselect-component';
 
 function App() {
-
     return (
         <>
             <Treeselect
                 data={[
-                {id: '1', item: 'Item 1'},
-                {
-                    id: 2, item: "Item 2", children: [
-                        id: 3, item: "Item 3"
-                    ]
-                }
-            ]}
+                    { id: '1', item: 'Item 1' },
+                    {
+                        id: 2,
+                        item: 'Item 2',
+                        children: [{ id: 3, item: 'Item 3' }]
+                    }
+                ]}
                 label="Treeselect"
-                idKey="id",
-                valueKey="item",
+                idKey="id"
+                valueKey="item"
                 onChange={
-                (value)=>{
-                    //do something with selected value
-                    console.log(value)
-                },
-                dir="ltr"
-            }
+                    ((value) => {
+                        //do something with selected value
+                        console.log(value);
+                    },
+                    (dir = 'ltr'))
+                }
             />
-
-
         </>
     );
 }
